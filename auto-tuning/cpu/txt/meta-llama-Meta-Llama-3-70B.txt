@@ -1,0 +1,55 @@
+ds_config = {
+            "zero_optimization": {
+        "stage": 3,
+        "offload_optimizer": {
+            "device": "cpu",
+            "nvme_path": "/media/ailab/inno_disk",
+            "pin_memory": True,
+            "buffer_count": 4,
+            "fast_init": True
+        },
+        "offload_param": {
+            "device": "cpu",
+            "pin_memory": True,
+            "nvme_path": "/media/ailab/inno_disk",
+            "buffer_count": 3,
+            "buffer_size": 11e8,
+            # "max_in_cpu": 11e7
+        },
+        },
+          "train_micro_batch_size_per_gpu": 1,
+        "fp16": {
+          "enabled": True
+        },
+        "autotuning": {
+          "enabled": True
+        }
+}
+result------------------------------------------------------------------------------------------------------------------------------------------------------------
+[2024-09-30 17:03:03,011] [INFO] [real_accelerator.py:203:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-09-30 17:03:04,089] [WARNING] [runner.py:212:fetch_hostfile] Unable to find hostfile, will proceed with training with local resources only.
+[2024-09-30 17:03:04,089] [INFO] [runner.py:585:main] cmd = /home/ailab/miniconda3/envs/ds-dailin/bin/python -u -m deepspeed.launcher.launch --world_info=eyJsb2NhbGhvc3QiOiBbMF19 --master_addr=127.0.0.1 --master_port=29500 --enable_each_rank_log=None /media/ailab/20T/dailin/fine-tune/excal_deepspeed/inference/inference_ds.py --autotuning run
+[2024-09-30 17:03:04,665] [INFO] [real_accelerator.py:203:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-09-30 17:03:05,506] [INFO] [launch.py:146:main] WORLD INFO DICT: {'localhost': [0]}
+[2024-09-30 17:03:05,506] [INFO] [launch.py:152:main] nnodes=1, num_local_procs=1, node_rank=0
+[2024-09-30 17:03:05,506] [INFO] [launch.py:163:main] global_rank_mapping=defaultdict(<class 'list'>, {'localhost': [0]})
+[2024-09-30 17:03:05,506] [INFO] [launch.py:164:main] dist_world_size=1
+[2024-09-30 17:03:05,506] [INFO] [launch.py:168:main] Setting CUDA_VISIBLE_DEVICES=0
+[2024-09-30 17:03:05,506] [INFO] [launch.py:256:main] process 2114524 spawned with command: ['/home/ailab/miniconda3/envs/ds-dailin/bin/python', '-u', '/media/ailab/20T/dailin/fine-tune/excal_deepspeed/inference/inference_ds.py', '--local_rank=0', '--autotuning', 'run']
+[2024-09-30 17:03:06,229] [INFO] [real_accelerator.py:203:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-09-30 17:03:07,108] [INFO] [comm.py:652:init_distributed] cdb=None
+[2024-09-30 17:03:07,108] [INFO] [comm.py:683:init_distributed] Initializing TorchBackend in DeepSpeed with backend nccl
+[2024-09-30 17:03:07,556] [INFO] [config.py:733:__init__] Config mesh_device None world_size = 1
+^C[2024-09-30 17:03:48,262] [INFO] [launch.py:319:sigkill_handler] Killing subprocess 2114524
+Traceback (most recent call last):
+  File "/home/ailab/miniconda3/envs/ds-dailin/bin/deepspeed", line 6, in <module>
+    main()
+  File "/home/ailab/miniconda3/envs/ds-dailin/lib/python3.10/site-packages/deepspeed/launcher/runner.py", line 601, in main
+    result.wait()
+  File "/home/ailab/miniconda3/envs/ds-dailin/lib/python3.10/subprocess.py", line 1209, in wait
+    return self._wait(timeout=timeout)
+  File "/home/ailab/miniconda3/envs/ds-dailin/lib/python3.10/subprocess.py", line 1959, in _wait
+    (pid, sts) = self._try_wait(0)
+  File "/home/ailab/miniconda3/envs/ds-dailin/lib/python3.10/subprocess.py", line 1917, in _try_wait
+    (pid, sts) = os.waitpid(self.pid, wait_flags)
+KeyboardInterrupt
